@@ -159,36 +159,35 @@
   </div>
 
   <!-- Playlist -->
-  <audio id="music" autoplay hidden></audio>
+  <audio id="music" autoplay loop></audio>
 
-  <script>
-    function nextPage(num) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(p => p.classList.remove('active'));
-      setTimeout(() => {
-        document.getElementById('page' + num).classList.add('active');
-      }, 50);
+<script>
+  const songs = [
+    "cancion1.mp3",
+    "cancion2.mp3",
+    "cancion3.mp3",
+    "cancion4.mp3",
+    "cancion5.mp3"
+  ];
+
+  let current = 0;
+  const player = document.getElementById("music");
+
+  function playNext() {
+    player.src = songs[current];
+    player.play().catch(err => {
+      // Algunos navegadores bloquean autoplay hasta que el usuario interactúe
+      console.log("Autoplay bloqueado, esperando interacción del usuario.");
+    });
+    current = (current + 1) % songs.length;
+  }
+
+  player.addEventListener("ended", playNext);
+
+  // Solo empieza al hacer clic en algún lugar
+  window.addEventListener("click", () => {
+    if (!player.src) {
+      playNext();
     }
-
-    const songs = [
-      "cancion1.mp3",
-      "cancion2.mp3",
-      "cancion3.mp3",
-      "cancion4.mp3",
-      "cancion5.mp3"
-    ];
-
-    let current = 0;
-    const player = document.getElementById("music");
-
-    function playNext() {
-      player.src = songs[current];
-      player.play();
-      current = (current + 1) % songs.length;
-    }
-
-    player.addEventListener("ended", playNext);
-    window.addEventListener("load", playNext);
-  </script>
-</body>
-</html>
+  });
+</script>
