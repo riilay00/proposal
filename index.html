@@ -15,9 +15,12 @@
       font-family: 'Quicksand', sans-serif;
       color: white;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       overflow: hidden;
-      background-image: url('2cd0f64ddb93437ba2f6d380261d20cc.jpg');
+      background-image: url('fondo.jpg'); /* Cambia este nombre si tu imagen tiene otro nombre */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -25,6 +28,8 @@
 
     .page {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       display: flex;
@@ -33,17 +38,16 @@
       justify-content: center;
       padding: 20px;
       opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
       pointer-events: none;
-      transition: opacity 0.6s ease;
     }
 
     .page.active {
       opacity: 1;
-      pointer-events: auto;
-    }
-
-    .fade-out {
-      opacity: 0 !important;
+      transform: scale(1);
+      pointer-events: all;
+      z-index: 1;
     }
 
     .button-pastel {
@@ -56,7 +60,6 @@
       border-radius: 25px;
       cursor: pointer;
       transition: background-color 0.3s, transform 0.2s;
-      font-family: 'Quicksand', sans-serif;
     }
 
     .button-pastel:hover {
@@ -107,7 +110,7 @@
       <h1>Escribí algo para ti, ¿Te gustaría leerlo?</h1>
       <div>
         <button class="button-pastel" onclick="nextPage(2)">Sí 💖</button>
-        <button class="button-pastel" onclick="alert('Está bien... tal vez otro día 😔')">No 😔</button>
+        <button id="noButton" class="button-pastel" onclick="loopNoText()">No 😔</button>
       </div>
     </div>
   </div>
@@ -131,7 +134,7 @@
 
   <!-- Página 3 -->
   <div id="page3" class="page">
-    <button class="heart-button back-button" onclick="nextPage(2)">
+    <button class="heart-button back-button" onclick="nextPage(1)">
       <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
     </button>
     <div class="card">
@@ -152,9 +155,16 @@
   </div>
 
   <!-- Música -->
-  <audio id="music" autoplay></audio>
+  <audio id="music" autoplay loop></audio>
 
 <script>
+  const pages = document.querySelectorAll('.page');
+  function nextPage(pageNumber) {
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById(`page${pageNumber}`).classList.add('active');
+  }
+
+  // Reproductor de música
   const songs = [
     "cancion1.mp3",
     "cancion2.mp3",
@@ -165,37 +175,39 @@
 
   let current = 0;
   const player = document.getElementById("music");
-  player.volume = 0.75; // volumen al 75%
+  player.volume = 0.75;
 
   function playNext() {
     player.src = songs[current];
-    player.play().catch(err => {
-      console.log("Autoplay bloqueado, esperando interacción.");
-    });
+    player.play().catch(() => {});
     current = (current + 1) % songs.length;
   }
 
   player.addEventListener("ended", playNext);
 
   window.addEventListener("click", () => {
-    if (!player.src) {
-      playNext();
-    }
+    if (!player.src) playNext();
   });
 
-  function nextPage(pageNumber) {
-    const currentPage = document.querySelector('.page.active');
-    const nextPage = document.getElementById('page' + pageNumber);
+  // Botón "No" que cambia frases en loop
+  const noButton = document.getElementById("noButton");
+  const phrases = [
+    "Dame chance :(",
+    "Di que sí, pe u.u",
+    "Te prometo que te gustará",
+    "Esto se repite hasta que aceptes 😡"
+  ];
+  let phraseIndex = 0;
+  let loopActive = false;
 
-    currentPage.classList.remove('active');
-    currentPage.classList.add('fade-out');
-
-    setTimeout(() => {
-      currentPage.classList.remove('fade-out');
-      nextPage.classList.add('active');
-    }, 400);
+  function loopNoText() {
+    if (loopActive) return;
+    loopActive = true;
+    setInterval(() => {
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      noButton.textContent = phrases[phraseIndex];
+    }, 1500);
   }
 </script>
-
 </body>
 </html>
