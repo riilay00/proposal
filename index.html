@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -11,12 +12,9 @@
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Quicksand', sans-serif;
       color: white;
       text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
       overflow: hidden;
       background-image: url('2cd0f64ddb93437ba2f6d380261d20cc.jpg');
@@ -26,21 +24,26 @@
     }
 
     .page {
-      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      max-width: 90%;
       opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
     }
 
     .page.active {
-      display: flex;
       opacity: 1;
-      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .fade-out {
+      opacity: 0 !important;
     }
 
     .button-pastel {
@@ -53,6 +56,7 @@
       border-radius: 25px;
       cursor: pointer;
       transition: background-color 0.3s, transform 0.2s;
+      font-family: 'Quicksand', sans-serif;
     }
 
     .button-pastel:hover {
@@ -127,7 +131,7 @@
 
   <!-- Página 3 -->
   <div id="page3" class="page">
-    <button class="heart-button back-button" onclick="nextPage(1)">
+    <button class="heart-button back-button" onclick="nextPage(2)">
       <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
     </button>
     <div class="card">
@@ -147,42 +151,51 @@
     </div>
   </div>
 
-  <!-- Reproductor de música -->
+  <!-- Música -->
   <audio id="music" autoplay></audio>
 
-  <script>
-    const songs = [
-      "cancion1.mp3",
-      "cancion2.mp3",
-      "cancion3.mp3",
-      "cancion4.mp3",
-      "cancion5.mp3"
-    ];
+<script>
+  const songs = [
+    "cancion1.mp3",
+    "cancion2.mp3",
+    "cancion3.mp3",
+    "cancion4.mp3",
+    "cancion5.mp3"
+  ];
 
-    let current = 0;
-    const player = document.getElementById("music");
+  let current = 0;
+  const player = document.getElementById("music");
+  player.volume = 0.75; // volumen al 75%
 
-    function playNext() {
-      player.src = songs[current];
-      player.play().catch(err => {
-        console.log("Autoplay bloqueado, esperando interacción del usuario.");
-      });
-      current = (current + 1) % songs.length;
-    }
-
-    player.addEventListener("ended", playNext);
-
-    window.addEventListener("click", () => {
-      if (!player.src) {
-        playNext();
-      }
+  function playNext() {
+    player.src = songs[current];
+    player.play().catch(err => {
+      console.log("Autoplay bloqueado, esperando interacción.");
     });
+    current = (current + 1) % songs.length;
+  }
 
-    function nextPage(number) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(`page${number}`).classList.add('active');
+  player.addEventListener("ended", playNext);
+
+  window.addEventListener("click", () => {
+    if (!player.src) {
+      playNext();
     }
-  </script>
+  });
+
+  function nextPage(pageNumber) {
+    const currentPage = document.querySelector('.page.active');
+    const nextPage = document.getElementById('page' + pageNumber);
+
+    currentPage.classList.remove('active');
+    currentPage.classList.add('fade-out');
+
+    setTimeout(() => {
+      currentPage.classList.remove('fade-out');
+      nextPage.classList.add('active');
+    }, 400);
+  }
+</script>
 
 </body>
 </html>
