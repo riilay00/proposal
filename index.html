@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -12,7 +12,7 @@
 
     body {
       margin: 0;
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Poppins', sans-serif;
       color: white;
       text-align: center;
       display: flex;
@@ -20,34 +20,26 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
-      background-image: url('2cd0f64ddb93437ba2f6d380261d20cc.jpg'); /* Cambia este nombre si tu imagen tiene otro nombre */
+      background: url('fondo.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
     }
 
     .page {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      max-width: 90%;
       opacity: 0;
       transform: scale(0.95);
       transition: opacity 0.6s ease, transform 0.6s ease;
-      pointer-events: none;
     }
 
     .page.active {
+      display: flex;
       opacity: 1;
       transform: scale(1);
-      pointer-events: all;
-      z-index: 1;
     }
 
     .button-pastel {
@@ -110,7 +102,7 @@
       <h1>Escribí algo para ti, ¿Te gustaría leerlo?</h1>
       <div>
         <button class="button-pastel" onclick="nextPage(2)">Sí 💖</button>
-        <button id="noButton" class="button-pastel" onclick="loopNoText()">No 😔</button>
+        <button id="botonNo" class="button-pastel" onclick="cambiarFraseNo(this)">No 😔</button>
       </div>
     </div>
   </div>
@@ -154,17 +146,23 @@
     </div>
   </div>
 
-  <!-- Música -->
+  <!-- Playlist -->
   <audio id="music" autoplay loop></audio>
 
 <script>
-  const pages = document.querySelectorAll('.page');
-  function nextPage(pageNumber) {
-    pages.forEach(page => page.classList.remove('active'));
-    document.getElementById(`page${pageNumber}`).classList.add('active');
+  const frasesNo = [
+    "Dame chance :(",
+    "Di que sí, pe u.u",
+    "Te prometo que te gustará",
+    "Esto se repite hasta que aceptes 😡"
+  ];
+  let noClickCount = 0;
+
+  function cambiarFraseNo(btn) {
+    noClickCount = (noClickCount + 1) % frasesNo.length;
+    btn.textContent = frasesNo[noClickCount];
   }
 
-  // Reproductor de música
   const songs = [
     "cancion1.mp3",
     "cancion2.mp3",
@@ -179,35 +177,33 @@
 
   function playNext() {
     player.src = songs[current];
-    player.play().catch(() => {});
+    player.play().catch(err => {
+      console.log("Autoplay bloqueado, esperando interacción del usuario.");
+    });
     current = (current + 1) % songs.length;
   }
 
   player.addEventListener("ended", playNext);
 
   window.addEventListener("click", () => {
-    if (!player.src) playNext();
+    if (!player.src) {
+      playNext();
+    }
   });
 
-  // Botón "No" que cambia frases en loop
-  const noButton = document.getElementById("noButton");
-  const phrases = [
-    "Dame chance :(",
-    "Di que sí, pe u.u",
-    "Te prometo que te gustará",
-    "Esto se repite hasta que aceptes 😡"
-  ];
-  let phraseIndex = 0;
-  let loopActive = false;
+  // Función para cambiar de página con transición suave
+  function nextPage(pageNumber) {
+    const currentPage = document.querySelector(".page.active");
+    const nextPage = document.getElementById(`page${pageNumber}`);
 
-  function loopNoText() {
-    if (loopActive) return;
-    loopActive = true;
-    setInterval(() => {
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      noButton.textContent = phrases[phraseIndex];
-    }, 1500);
+    if (currentPage !== nextPage) {
+      currentPage.classList.remove("active");
+      setTimeout(() => {
+        nextPage.classList.add("active");
+      }, 300); // delay para permitir la animación de salida
+    }
   }
 </script>
+
 </body>
 </html>
