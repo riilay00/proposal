@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para ti ❤️</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('descarga.gif') no-repeat center center fixed;
-      background-size: cover;
       color: white;
       text-align: center;
       display: flex;
@@ -19,6 +21,16 @@
       overflow: hidden;
     }
 
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
     .page {
       display: none;
       flex-direction: column;
@@ -26,10 +38,32 @@
       justify-content: center;
       padding: 20px;
       max-width: 90%;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .page.active {
       display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .button-pastel {
+      background-color: #f7cfe3;
+      color: #8b2e53;
+      border: 2px solid #f49ac2;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .button-pastel:hover {
+      background-color: #fbd7ea;
+      transform: scale(1.05);
     }
 
     .heart-button {
@@ -56,39 +90,46 @@
       max-width: 600px;
     }
 
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
     audio {
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
+
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="descarga.mp4" type="video/mp4">
+    Tu navegador no soporta videos.
+  </video>
+
   <!-- Página 1 -->
   <div id="page1" class="page active">
     <div class="card">
       <h1>¿Quieres leer algo que escribí para ti?</h1>
       <div>
-        <button class="heart-button" onclick="nextPage(2)">
-          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Sí">
-        </button>
-        <button class="heart-button" onclick="alert('Está bien... tal vez otro día 😔')">
-          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="No" style="filter: grayscale(100%)">
-        </button>
+        <button class="button-pastel" onclick="nextPage(2)">Sí, quiero 💖</button>
+        <button class="button-pastel" onclick="alert('Está bien... tal vez otro día 😔')">No por ahora</button>
       </div>
     </div>
   </div>
 
   <!-- Página 2 -->
   <div id="page2" class="page">
+    <button class="heart-button back-button" onclick="nextPage(1)">
+      <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
+    </button>
     <div class="card">
       <h2>Querida [Nombre],</h2>
       <p style="text-align: left">
         Aquí va la carta que quieras escribirle...<br>
         Puedes contarle cómo te sientes, cuándo empezó a gustarte, momentos que valoras, etc.
       </p>
-      <audio controls loop autoplay>
-        <source src="tu-cancion.mp3" type="audio/mpeg">
-        Tu navegador no soporta audio :(
-      </audio>
       <button class="heart-button" onclick="nextPage(3)">
         <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Siguiente">
       </button>
@@ -97,6 +138,9 @@
 
   <!-- Página 3 -->
   <div id="page3" class="page">
+    <button class="heart-button back-button" onclick="nextPage(1)">
+      <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
+    </button>
     <div class="card">
       <p style="text-align: left">
         Nunca pensé que alguien pudiera hacerme sonreír tan fácil, o que un simple mensaje tuyo pudiera alegrarme el día completo.<br><br>
@@ -114,11 +158,37 @@
     </div>
   </div>
 
+  <!-- Playlist -->
+  <audio id="music" autoplay hidden></audio>
+
   <script>
     function nextPage(num) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + num).classList.add('active');
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(p => p.classList.remove('active'));
+      setTimeout(() => {
+        document.getElementById('page' + num).classList.add('active');
+      }, 50);
     }
+
+    const songs = [
+      "cancion1.mp3",
+      "cancion2.mp3",
+      "cancion3.mp3",
+      "cancion4.mp3",
+      "cancion5.mp3"
+    ];
+
+    let current = 0;
+    const player = document.getElementById("music");
+
+    function playNext() {
+      player.src = songs[current];
+      player.play();
+      current = (current + 1) % songs.length;
+    }
+
+    player.addEventListener("ended", playNext);
+    window.addEventListener("load", playNext);
   </script>
 </body>
 </html>
