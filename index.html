@@ -19,16 +19,10 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
-    }
-
-    #backgroundVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      background-image: url('2cd0f64ddb93437ba2f6d380261d20cc.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .page {
@@ -103,11 +97,6 @@
 </head>
 <body>
 
-  <video autoplay muted loop id="backgroundVideo">
-    <source src="descarga.mp4" type="video/mp4">
-    Tu navegador no soporta videos.
-  </video>
-
   <!-- Página 1 -->
   <div id="page1" class="page active">
     <div class="card">
@@ -176,7 +165,6 @@
   function playNext() {
     player.src = songs[current];
     player.play().catch(err => {
-      // Algunos navegadores bloquean autoplay hasta que el usuario interactúe
       console.log("Autoplay bloqueado, esperando interacción del usuario.");
     });
     current = (current + 1) % songs.length;
@@ -184,10 +172,17 @@
 
   player.addEventListener("ended", playNext);
 
-  // Solo empieza al hacer clic en algún lugar
   window.addEventListener("click", () => {
     if (!player.src) {
       playNext();
     }
   });
+
+  function nextPage(number) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(`page${number}`).classList.add('active');
+  }
 </script>
+
+</body>
+</html>
