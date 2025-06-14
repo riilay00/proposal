@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para ti ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('descarga.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      max-width: 90%;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    .heart-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+    }
+
+    .heart-button:hover {
+      transform: scale(1.1);
+    }
+
+    .heart-button img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .card {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 600px;
+    }
+
+    audio {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Página 1 -->
+  <div id="page1" class="page active">
+    <div class="card">
+      <h1>¿Quieres leer algo que escribí para ti?</h1>
+      <div>
+        <button class="heart-button" onclick="nextPage(2)">
+          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Sí">
+        </button>
+        <button class="heart-button" onclick="alert('Está bien... tal vez otro día 😔')">
+          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="No" style="filter: grayscale(100%)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Página 2 -->
+  <div id="page2" class="page">
+    <div class="card">
+      <h2>Querida [Nombre],</h2>
+      <p style="text-align: left">
+        Aquí va la carta que quieras escribirle...<br>
+        Puedes contarle cómo te sientes, cuándo empezó a gustarte, momentos que valoras, etc.
+      </p>
+      <audio controls loop autoplay>
+        <source src="tu-cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio :(
+      </audio>
+      <button class="heart-button" onclick="nextPage(3)">
+        <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Siguiente">
+      </button>
+    </div>
+  </div>
+
+  <!-- Página 3 -->
+  <div id="page3" class="page">
+    <div class="card">
+      <p style="text-align: left">
+        Nunca pensé que alguien pudiera hacerme sonreír tan fácil, o que un simple mensaje tuyo pudiera alegrarme el día completo.<br><br>
+        Me encantaría seguir conociéndote, compartir más momentos contigo y ser alguien especial para ti...
+      </p>
+      <h2>¿Quieres ser mi novia? 💖</h2>
+      <div>
+        <button class="heart-button" onclick="alert('¡Me hiciste muy feliz! ❤️')">
+          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Sí">
+        </button>
+        <button class="heart-button" onclick="alert('Está bien, lo entiendo. Gracias por leer esto ❤️')">
+          <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Tal vez después" style="filter: grayscale(100%)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function nextPage(num) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + num).classList.add('active');
+    }
+  </script>
+</body>
+</html>
