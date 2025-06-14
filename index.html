@@ -178,23 +178,20 @@
 
   let current = 0;
   const player = document.getElementById("music");
-  player.volume = 0.75;
+  player.volume = 0.65;
 
   function playNext() {
     player.src = songs[current];
     player.play().catch(err => {
-      console.log("Autoplay bloqueado, esperando interacción del usuario.");
+      console.log("Error al reproducir:", err);
     });
     current = (current + 1) % songs.length;
   }
 
   player.addEventListener("ended", playNext);
 
-  window.addEventListener("click", () => {
-    if (!player.src) {
-      playNext();
-    }
-  });
+  // Reproducir la primera canción al cargar
+  window.addEventListener("DOMContentLoaded", playNext);
 
   function nextPage(pageNumber) {
     const pages = document.querySelectorAll(".page");
