@@ -152,7 +152,7 @@
   </div>
 
   <!-- Playlist -->
-  <audio id="music" autoplay loop></audio>
+  <audio id="music" autoplay></audio>
 
 <script>
   const frasesNo = [
@@ -178,7 +178,7 @@
 
   let current = 0;
   const player = document.getElementById("music");
-  player.volume = 0.65;
+  player.volume = 0.75;
 
   function playNext() {
     player.src = songs[current];
@@ -202,7 +202,7 @@
 
     setTimeout(() => {
       document.getElementById(`page${pageNumber}`).classList.add("active");
-    }, 100); // corto delay para suavizar la transición
+    }, 100);
   }
 </script>
 
