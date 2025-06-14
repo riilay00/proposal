@@ -147,42 +147,42 @@
     </div>
   </div>
 
-  <!-- Playlist -->
-  <audio id="music" autoplay loop></audio>
+  <!-- Reproductor de música -->
+  <audio id="music" autoplay></audio>
 
-<script>
-  const songs = [
-    "cancion1.mp3",
-    "cancion2.mp3",
-    "cancion3.mp3",
-    "cancion4.mp3",
-    "cancion5.mp3"
-  ];
+  <script>
+    const songs = [
+      "cancion1.mp3",
+      "cancion2.mp3",
+      "cancion3.mp3",
+      "cancion4.mp3",
+      "cancion5.mp3"
+    ];
 
-  let current = 0;
-  const player = document.getElementById("music");
+    let current = 0;
+    const player = document.getElementById("music");
 
-  function playNext() {
-    player.src = songs[current];
-    player.play().catch(err => {
-      console.log("Autoplay bloqueado, esperando interacción del usuario.");
-    });
-    current = (current + 1) % songs.length;
-  }
-
-  player.addEventListener("ended", playNext);
-
-  window.addEventListener("click", () => {
-    if (!player.src) {
-      playNext();
+    function playNext() {
+      player.src = songs[current];
+      player.play().catch(err => {
+        console.log("Autoplay bloqueado, esperando interacción del usuario.");
+      });
+      current = (current + 1) % songs.length;
     }
-  });
 
-  function nextPage(number) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(`page${number}`).classList.add('active');
-  }
-</script>
+    player.addEventListener("ended", playNext);
+
+    window.addEventListener("click", () => {
+      if (!player.src) {
+        playNext();
+      }
+    });
+
+    function nextPage(number) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page${number}`).classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
