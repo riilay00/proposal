@@ -22,24 +22,28 @@
       overflow: hidden;
       background: url('fondo.jpg') no-repeat center center fixed;
       background-size: cover;
+      position: relative;
     }
 
     .page {
-      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      max-width: 90%;
       opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
     }
 
     .page.active {
-      display: flex;
       opacity: 1;
-      transform: scale(1);
+      pointer-events: auto;
     }
 
     .button-pastel {
@@ -84,9 +88,10 @@
     }
 
     .back-button {
-      position: absolute;
+      position: fixed;
       top: 20px;
       left: 20px;
+      z-index: 10;
     }
 
     audio {
@@ -173,7 +178,7 @@
 
   let current = 0;
   const player = document.getElementById("music");
-  player.volume = 0.75;
+  player.volume = 0.65;
 
   function playNext() {
     player.src = songs[current];
@@ -191,17 +196,13 @@
     }
   });
 
-  // Función para cambiar de página con transición suave
   function nextPage(pageNumber) {
-    const currentPage = document.querySelector(".page.active");
-    const nextPage = document.getElementById(`page${pageNumber}`);
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(p => p.classList.remove("active"));
 
-    if (currentPage !== nextPage) {
-      currentPage.classList.remove("active");
-      setTimeout(() => {
-        nextPage.classList.add("active");
-      }, 300); // delay para permitir la animación de salida
-    }
+    setTimeout(() => {
+      document.getElementById(`page${pageNumber}`).classList.add("active");
+    }, 100); // corto delay para suavizar la transición
   }
 </script>
 
