@@ -127,7 +127,7 @@
         alt="Imagen decorativa" 
         style="max-width: 100%; border-radius: 15px; margin-bottom: 20px;"
       >
-      <h1>Escribí algo para ti, ¿Te gustaría leerlo?</h1>
+      <h1>Escribí algo para ti, ¿te gustaría leerlo?</h1>
       <div>
         <button class="button-pastel" onclick="nextPage(2)">Sí 💖</button>
         <button id="botonNo" class="button-pastel" onclick="cambiarFraseNo(this)">No 😔</button>
@@ -174,19 +174,27 @@ Espero de verdad que te haya gustado...sé que no es la gran cosa, pero me esfor
       No sé como puede no gustarte tu voz, si es muy pero muy bonita, en serio. Justamente eso es una de las razones por las que me gusta quedarme a dormir contigo en llamada, así puedo escucharte cuando me voy a dormir y a veces también al despertar.
       Me gusta mucho también compartir cosas contigo, como el gusto/estrés por el lol por ejemplo, o el gusto por las películas de terror. Gracias por permitirme pasar parte de mis días contigo, te prometo que lo aprovecharé al 100% para hacer que ambos nos la pasemos bien.
       Recuerdo un día que estabamos jugando tft y me dijiste que no le había tomado screenshot a unos matchs que estabamos haciendo en bots, pero en realidad yo si lo había hecho, porque aprecio mucho ese tipo de cosas jaja pido perdón por ser tan cursi u.u.
-      Como un recuerdo, te dejaré aquí abajito mis matchs favoritos de los que hemos hecho hasta ahora.
+      Como un recuerdo, te dejaré mis matchs favoritos de los que hemos hecho hasta ahora. Para verlos solo hazle click al corazón de abajo :b
     </p>
-
-    <!-- Galería horizontal de imágenes -->
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381787014080368650/image.png?ex=684f6070&is=684e0ef0&hm=ccedcf3a036665b14be518cc6308f1fbdf734bff9a92c4fb9ccb4e83a9a6b4cb&=&format=webp&quality=lossless" alt="Match 1" style="width: 30%; border-radius: 10px;">
-      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381127559130906654/image.png?ex=684ef486&is=684da306&hm=34ce166de068c00401e6e1d74c862b32c37f5a6e573375019f5fbb03ae369ded&=&format=webp&quality=lossless" alt="Match 2" style="width: 30%; border-radius: 10px;">
-      <img src="https://media.discordapp.net/attachments/1381814536096579615/1381953534395682857/image.png?ex=684eaa06&is=684d5886&hm=abaf5490ac2a5aa9424817d76061df6e876efa7fccaf56645e9f7cc5c72d1c9c&=&format=webp&quality=lossless" alt="Match 3" style="width: 30%; border-radius: 10px;">
-    </div>
-
+     <button class="heart-button" onclick="nextPage(4)">
+  <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Ver matchs">
+</button>
   </div>
 </div>
-
+<!-- Página 4 - Galería de partidas -->
+<div id="page4" class="page">
+  <button class="heart-button back-button" onclick="nextPage(1)">
+    <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
+  </button>
+  <div class="card">
+    <h2 style="margin-bottom: 20px;">Nuestros matchs 💖</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381787014080368650/image.png?ex=684f6070&is=684e0ef0&hm=ccedcf3a036665b14be518cc6308f1fbdf734bff9a92c4fb9ccb4e83a9a6b4cb&=&format=webp&quality=lossless" alt="Match 1" style="width: 100%; border-radius: 15px;">
+      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381127559130906654/image.png?ex=684ef486&is=684da306&hm=34ce166de068c00401e6e1d74c862b32c37f5a6e573375019f5fbb03ae369ded&=&format=webp&quality=lossless" alt="Match 2" style="width: 100%; border-radius: 15px;">
+      <img src="https://media.discordapp.net/attachments/1381814536096579615/1381953534395682857/image.png?ex=684eaa06&is=684d5886&hm=abaf5490ac2a5aa9424817d76061df6e876efa7fccaf56645e9f7cc5c72d1c9c&=&format=webp&quality=lossless" alt="Match 3" style="width: 100%; border-radius: 15px;">
+    </div>
+  </div>
+</div>
 
   <!-- Playlist -->
   <audio id="music" autoplay></audio>
