@@ -160,29 +160,24 @@
     opacity: 1;
   }
 
-.proposal-container {
-  position: relative;
-  cursor: pointer;
-}
-
 .proposal-overlay {
-  display: none;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.65);
-  color: white;
-  font-size: 36px;
-  font-family: 'Great Vibes', cursive;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.65); /* Fondo rosado translúcido */
   padding: 20px;
-  box-sizing: border-box;
+  border-radius: 15px;
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.proposal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
   </style>
@@ -254,7 +249,7 @@ Espero de verdad que te haya gustado...sé que no es la gran cosa, pero me esfor
 </div>
 <!-- Página 4 - Galería de partidas -->
 <div id="page4" class="page">
-  <button class="heart-button back-button" onclick="nextPage(3)">
+  <button class="heart-button back-button" onclick="nextPage(1)">
     <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
   </button>
   <div class="card">
@@ -284,17 +279,17 @@ Espero de verdad que te haya gustado...sé que no es la gran cosa, pero me esfor
 </div>
  <!-- Página 5 - Pregunta final -->
 <div id="page5" class="page">
-  <button class="heart-button back-button" onclick="nextPage(4)">
+  <button class="heart-button back-button" onclick="nextPage(1)">
     <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
   </button>
   <div class="card">
     
-    <div class="proposal-container" onclick="toggleProposalText()">
-      <img src="https://i.pinimg.com/736x/e7/72/d8/e772d89ba621709a1b889c046e7447b1.jpg"
-           alt="Imagen especial"
-           style="max-width: 100%; border-radius: 15px; margin-bottom: 20px;">
-      <div class="proposal-overlay" id="proposalOverlay">
-        ¿Te gustaría ser mi novia? 💖
+   <div class="proposal-container" onclick="toggleProposalText()" style="position: relative;">
+  <img src="https://i.pinimg.com/736x/e7/72/d8/e772d89ba621709a1b889c046e7447b1.jpg"
+       alt="Imagen especial"
+       style="max-width: 100%; border-radius: 15px; margin-bottom: 20px;">
+  <div class="proposal-overlay" id="proposalOverlay">
+    ¿Te gustaría ser mi novia? 💖
       </div>
     </div>
 
@@ -360,9 +355,9 @@ Espero de verdad que te haya gustado...sé que no es la gran cosa, pero me esfor
     }
     
 
-  function toggleProposalText() {
+   function toggleProposalText() {
     const overlay = document.getElementById("proposalOverlay");
-    overlay.style.display = overlay.style.display === "flex" ? "none" : "flex";
+    overlay.classList.add("visible");
   }
 
   </script>
