@@ -104,6 +104,11 @@
   <!-- Página 1 -->
   <div id="page1" class="page active">
     <div class="card">
+      <img 
+        src="https://i.pinimg.com/736x/46/db/de/46dbde4d4af7754ff1234bd4743ec85a.jpg" 
+        alt="Imagen decorativa" 
+        style="max-width: 100%; border-radius: 15px; margin-bottom: 20px;"
+      >
       <h1>Escribí algo para ti, ¿Te gustaría leerlo?</h1>
       <div>
         <button class="button-pastel" onclick="nextPage(2)">Sí 💖</button>
@@ -164,8 +169,8 @@
   let noClickCount = 0;
 
   function cambiarFraseNo(btn) {
-    noClickCount = (noClickCount + 1) % frasesNo.length;
     btn.textContent = frasesNo[noClickCount];
+    noClickCount = (noClickCount + 1) % frasesNo.length;
   }
 
   const songs = [
@@ -183,15 +188,18 @@
   function playNext() {
     player.src = songs[current];
     player.play().catch(err => {
-      console.log("Error al reproducir:", err);
+      console.log("Autoplay bloqueado, esperando interacción del usuario.");
     });
     current = (current + 1) % songs.length;
   }
 
   player.addEventListener("ended", playNext);
 
-  // Reproducir la primera canción al cargar
-  window.addEventListener("DOMContentLoaded", playNext);
+  window.addEventListener("click", () => {
+    if (!player.src || player.paused) {
+      playNext();
+    }
+  });
 
   function nextPage(pageNumber) {
     const pages = document.querySelectorAll(".page");
