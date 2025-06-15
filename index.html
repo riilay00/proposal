@@ -115,6 +115,51 @@
     audio {
       margin-top: 20px;
     }
+    
+  .match-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .match-item {
+    position: relative;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .match-item img {
+    width: 100%;
+    display: block;
+    border-radius: 15px;
+  }
+
+  .overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 15px;
+  }
+
+  .match-item:hover .overlay-text {
+    opacity: 1;
+  }
+
+
   </style>
 </head>
 <body>
@@ -184,15 +229,24 @@ Espero de verdad que te haya gustado...sé que no es la gran cosa, pero me esfor
 </div>
 <!-- Página 4 - Galería de partidas -->
 <div id="page4" class="page">
-  <button class="heart-button back-button" onclick="nextPage(1)">
+  <button class="heart-button back-button" onclick="nextPage(3)">
     <img src="ca8db979-c3f7-47ca-8425-d24bca930c97.png" alt="Volver">
   </button>
   <div class="card">
     <h2 style="margin-bottom: 20px;">Nuestros matchs 💖</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px;">
-      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381787014080368650/image.png?ex=684f6070&is=684e0ef0&hm=ccedcf3a036665b14be518cc6308f1fbdf734bff9a92c4fb9ccb4e83a9a6b4cb&=&format=webp&quality=lossless" alt="Match 1" style="width: 100%; border-radius: 15px;">
-      <img src="https://media.discordapp.net/attachments/1379751721676443790/1381127559130906654/image.png?ex=684ef486&is=684da306&hm=34ce166de068c00401e6e1d74c862b32c37f5a6e573375019f5fbb03ae369ded&=&format=webp&quality=lossless" alt="Match 2" style="width: 100%; border-radius: 15px;">
-      <img src="https://media.discordapp.net/attachments/1381814536096579615/1381953534395682857/image.png?ex=684eaa06&is=684d5886&hm=abaf5490ac2a5aa9424817d76061df6e876efa7fccaf56645e9f7cc5c72d1c9c&=&format=webp&quality=lossless" alt="Match 3" style="width: 100%; border-radius: 15px;">
+    <div class="match-gallery">
+      <div class="match-item">
+        <img src="https://media.discordapp.net/attachments/1379751721676443790/1381787014080368650/image.png?ex=684f6070&is=684e0ef0&hm=ccedcf3a036665b14be518cc6308f1fbdf734bff9a92c4fb9ccb4e83a9a6b4cb&=&format=webp&quality=lossless" alt="Match 1">
+        <div class="overlay-text">Este match me gusta porque fue el primero que hicimos</div>
+      </div>
+      <div class="match-item">
+        <img src="https://media.discordapp.net/attachments/1379751721676443790/1381127559130906654/image.png?ex=684ef486&is=684da306&hm=34ce166de068c00401e6e1d74c862b32c37f5a6e573375019f5fbb03ae369ded&=&format=webp&quality=lossless" alt="Match 2">
+        <div class="overlay-text">Aquí ganamos y nos reímos mucho uwu</div>
+      </div>
+      <div class="match-item">
+        <img src="https://media.discordapp.net/attachments/1381814536096579615/1381953534395682857/image.png?ex=684eaa06&is=684d5886&hm=abaf5490ac2a5aa9424817d76061df6e876efa7fccaf56645e9f7cc5c72d1c9c&=&format=webp&quality=lossless" alt="Match 3">
+        <div class="overlay-text">Jugamos en dúo y saliste MVP 😳</div>
+      </div>
     </div>
   </div>
 </div>
